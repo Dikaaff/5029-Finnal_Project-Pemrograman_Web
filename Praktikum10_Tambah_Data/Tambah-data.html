@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--========== BOX ICONS ==========-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+    />
+
+    <!--========== CSS ==========-->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <title>Tambah Jadwal</title>
+  </head>
+  <style>
+    /*========== GOOGLE FONTS ==========*/
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+/*========== VARIABLES CSS ==========*/
+:root {
+  --nav-width: 219px;
+
+  /*========== Colors ==========*/
+  --first-color: #6923d0;
+  --first-color-light: #f4f0fa;
+  --title-color: #19181b;
+  --text-color: #58555e;
+  --text-color-light: #a5a1aa;
+  --body-color: #f9f6fd;
+  --container-color: #ffffff;
+
+  /*========== Font and typography ==========*/
+  --body-font: "Poppins", sans-serif;
+  --normal-font-size: 0.938rem;
+  --small-font-size: 0.75rem;
+  --smaller-font-size: 0.75rem;
+
+  /*========== Font weight ==========*/
+  --font-medium: 500;
+  --font-semi-bold: 600;
+
+  /*========== z index ==========*/
+  --z-fixed: 100;
+}
+
+@media screen and (min-width: 1024px) {
+  :root {
+    --normal-font-size: 1rem;
+    --small-font-size: 0.875rem;
+    --smaller-font-size: 0.813rem;
+  }
+}
+
+body {
+  margin: var(--header-height) 0 0 0;
+  padding: 1rem 1rem 0;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(151, 41, 247, 1) 0%,
+    rgba(24, 22, 39, 1) 90%
+  );
+  color: white;
+  margin-bottom: 60px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  background-color: black;
+  transition: 0.4s;
+}
+
+.nav__container {
+  height: 100%;
+  flex-direction: column;
+  padding-bottom: 2rem;
+  overflow: auto;
+}
+
+.nav__container::-webkit-scrollbar {
+  display: none;
+}
+
+.nav__list,
+.nav__items {
+  display: grid;
+}
+
+.nav__list, .nav__items {
+  row-gap: 2.5rem;
+}
+
+.nav__subtitle {
+  font-size: var(--normal-font-size);
+  color: var(--text-color-light);
+}
+
+.nav__link {
+  display: flex;
+  color: var(--text-color);
+}
+
+.nav__link:hover {
+  color: var(--first-color);
+}
+
+.nav__name {
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+}
+
+.nav__logout {
+  margin-top: 5rem;
+}
+
+.nav__dropdown {
+  overflow: hidden;
+  max-height: 21px;
+  transition: 0.4s ease-in-out;
+}
+
+.nav__dropdown-collapse {
+  background-color: var(--first-color-light);
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+}
+
+.nav__dropdown-content {
+  display: grid;
+  row-gap: 0.5rem;
+  padding: 0.75rem 2.5rem 0.75rem 1.8rem;
+}
+
+.nav__dropdown-item {
+  font-size: var(--smaller-font-size);
+  font-weight: var(--font-medium);
+  color: var(--text-color);
+}
+
+.nav__dropdown-item:hover {
+  color: var(--first-color);
+}
+
+.nav__dropdown:hover {
+  max-height: 100rem;
+}
+
+.nav__dropdown:hover .nav__dropdown-icon {
+  transform: rotate(180deg);
+}
+
+.show-menu {
+  left: 0;
+}
+
+.active {
+  color: var(--first-color);
+}
+
+@media screen and (max-width: 320px) {
+  .header__search {
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    padding: 1rem 3rem 0 6rem;
+  }
+  .header {
+    padding: 0 3rem 0 6rem;
+  }
+  .header__container {
+    height: calc(var(--header-height) + 0.5rem);
+  }
+  .header__search {
+    width: 300px;
+    padding: 0.55rem 0.75rem;
+  }
+  .header__toggle {
+    display: none;
+  }
+  .header__logo {
+    display: block;
+  }
+  .header__img {
+    width: 40px;
+    height: 40px;
+    order: 1;
+  }
+  .nav {
+    left: 0;
+    padding: 1.2rem 1.5rem 0;
+    width: 68px; /* Reduced navbar */
+  }
+  .nav__items {
+    row-gap: 1.7rem;
+  }
+  .nav__icon {
+    font-size: 1.3rem;
+  }
+
+  /* Element opacity */
+  .nav__logo-name,
+  .nav__name,
+  .nav__subtitle,
+  .nav__dropdown-icon {
+    opacity: 0;
+    transition: 0.3s;
+  }
+
+  /* Navbar expanded */
+  .nav:hover {
+    width: var(--nav-width);
+  }
+
+  /* Visible elements */
+  .nav:hover .nav__logo-name {
+    opacity: 1;
+  }
+  .nav:hover .nav__subtitle {
+    opacity: 1;
+  }
+  .nav:hover .nav__name {
+    opacity: 1;
+  }
+  .nav:hover .nav__dropdown-icon {
+    opacity: 1;
+  }
+
+  .halo1 {
+    margin-left: 35px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-left: 35px;
+    }
+}
+  </style>
+  <body>
+    <!--========== HEADER ==========-->
+    <div class="col py-3 h-3">
+        <h2>ADD STUDENT SCHEDULE</h2><br>
+        <div class="container rounded py-1 my-2 "style="background-color: rgba(0, 0, 0, 0.593);">
+          <h4>D3 - Informatcits Engineering - 02</h4>
+        </div>
+
+    <!--========== NAV ==========-->
+    <div class="nav" id="navbar">
+      <nav class="nav__container">
+        <div>
+          <div class="pp mx-auto">
+            <img
+              src="elon.webp"
+              alt="";
+              style= "border-radius: 90px"
+              width= "100px"
+              height="100px"
+              border-radius="20px"
+            />
+          </div>
+          <div class="text-bottom mx-auto pt-3">
+            <h6>DIKA AFIF INDRAWAN</h6>
+          </div>
+          <div class="halo1 text-bottom ml-5">
+            <p>23.01.5029</p>
+          </div>
+
+          <div class="nav__list">
+            <div class="nav__items">
+              <h3 class="nav__subtitle">Profile</h3>
+
+              <a href="/Peraktikum9_Dashboard/dashboard.html" class="nav__link active">
+                <i class="bx bx-home nav__icon"></i>
+                <span class="nav__name">Home</span>
+              </a>
+
+              <div class="nav__dropdown">
+                <a href="#" class="nav__link">
+                  <i class="bx bx-user nav__icon"></i>
+                  <span class="nav__name">Profile</span>
+                  <i
+                    class="bx bx-chevron-down nav__icon nav__dropdown-icon"
+                  ></i>
+                </a>
+
+                <div class="nav__dropdown-collapse">
+                  <div class="nav__dropdown-content">
+                    <a href="/Praktikum11_Rekap_Nilai/Rekap-nilai.html" class="nav__dropdown-item">Rekap Nilai</a>
+                  </div>
+                </div>
+              </div>
+
+              <a href="/Praktikum10_Tambah-Data/Tambah-data.html" class="nav__link">
+                <i class="bx bx-message-rounded nav__icon"></i>
+                <span class="nav__name">Tambah Data</span>
+              </a>
+            </div>
+
+            <div class="nav__items">
+              <h3 class="nav__subtitle">Menu</h3>
+
+              <div class="nav__dropdown">
+                <a href="#" class="nav__link">
+                  <i class="bx bx-bell nav__icon"></i>
+                  <span class="nav__name">Notifications</span>
+                  <i
+                    class="bx bx-chevron-down nav__icon nav__dropdown-icon"
+                  ></i>
+                </a>
+
+                <div class="nav__dropdown-collapse">
+                  <div class="nav__dropdown-content">
+                    <a href="#" class="nav__dropdown-item">Blocked</a>
+                    <a href="#" class="nav__dropdown-item">Silenced</a>
+                    <a href="#" class="nav__dropdown-item">Publish</a>
+                    <a href="#" class="nav__dropdown-item">Program</a>
+                  </div>
+                </div>
+              </div>
+
+              <a href="#" class="nav__link">
+                <i class="bx bx-compass nav__icon"></i>
+                <span class="nav__name">Explore</span>
+              </a>
+              <a href="#" class="nav__link">
+                <i class="bx bx-bookmark nav__icon"></i>
+                <span class="nav__name">Saved</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="/Pertemuan_7/Form-Login/Login-Page.html" class="nav__link nav__logout">
+          <i class="bx bx-log-out nav__icon"></i>
+          <span class="nav__name">Log Out</span>
+        </a>
+      </nav>
+    </div>
+
+    <main>
+      <section>
+            <form action="">
+            <div class="container">
+                <div class="row">
+                  <div class="col-5">
+                    <div class="hi">
+                        <p>Subject :</p>
+                    </div>
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">Web Programing</option>
+                        <option value="2">Saince</option>
+                        <option value="3">Math</option>
+                      </select>
+                    <div class="hi">
+                        <p>Class :</p>
+                    </div>
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">D3-TI01</option>
+                        <option value="2">D3-TI02</option>
+                        <option value="3">D3-TI03</option>
+                      </select>
+                    <div class="hi">
+                        <p>Program Study :</p>
+                    </div>
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">Informatika</option>
+                        <option value="2">Ilmu Komputer</option>
+                        <option value="3">Sistem Informasi</option>
+                      </select>
+                    <div class="hi">
+                        <p>Semester :</p>
+                    </div>
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">2</option>
+                        <option value="2">4</option>
+                        <option value="3">6</option>
+                      </select>
+                  </div>
+                  <div class="col-5 mx-5">
+                    <div class="hi">
+                        <p>Date :</p>
+                    </div>
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">17-Juli-2024</option>
+                        <option value="2">18-Juli-2024</option>
+                        <option value="3">19-Juli-2024</option>
+                      </select>
+                    <div class="hi">
+                        <p>Time :</p>
+                    </div>
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">09:00</option>
+                        <option value="2">10:00</option>
+                        <option value="3">12:00</option>
+                      </select>
+                    <div class="hi">
+                        <p>Room :</p>
+                    </div>
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">7.4.5</option>
+                        <option value="2">6.3.5</option>
+                        <option value="3">5.3.2</option>
+                      </select>
+                    <div class="hi">
+                        <p>Information :</p>
+                    </div>
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">None</option>
+                        <option value="2">None</option>
+                        <option value="3">None</option>
+                      </select>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+                  </div>
+                </div>
+      </section>
+  </body>
+</html>

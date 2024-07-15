@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+    />
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  </head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+/*========== VARIABLES CSS ==========*/
+:root {
+  --nav-width: 219px;
+
+  /*========== Colors ==========*/
+  --first-color: #6923d0;
+  --first-color-light: #f4f0fa;
+  --title-color: #19181b;
+  --text-color: #58555e;
+  --text-color-light: #a5a1aa;
+  --body-color: #f9f6fd;
+  --container-color: #ffffff;
+
+  /*========== Font and typography ==========*/
+  --body-font: "Poppins", sans-serif;
+  --normal-font-size: 0.938rem;
+  --small-font-size: 0.75rem;
+  --smaller-font-size: 0.75rem;
+
+  /*========== Font weight ==========*/
+  --font-medium: 500;
+  --font-semi-bold: 600;
+
+  /*========== z index ==========*/
+  --z-fixed: 100;
+}
+
+@media screen and (min-width: 1024px) {
+  :root {
+    --normal-font-size: 1rem;
+    --small-font-size: 0.875rem;
+    --smaller-font-size: 0.813rem;
+  }
+}
+
+body {
+  margin: var(--header-height) 0 0 0;
+  padding: 1rem 1rem 0;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(151, 41, 247, 1) 0%,
+    rgba(24, 22, 39, 1) 90%
+  );
+  color: white;
+  margin-bottom: 60px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  background-color: black;
+  transition: 0.4s;
+}
+
+.nav__container {
+  height: 100%;
+  flex-direction: column;
+  padding-bottom: 2rem;
+  overflow: auto;
+}
+
+.nav__container::-webkit-scrollbar {
+  display: none;
+}
+
+.nav__list,
+.nav__items {
+  display: grid;
+}
+
+.nav__list, .nav__items {
+  row-gap: 2.5rem;
+}
+
+.nav__subtitle {
+  font-size: var(--normal-font-size);
+  color: var(--text-color-light);
+}
+
+.nav__link {
+  display: flex;
+  color: var(--text-color);
+}
+
+.nav__link:hover {
+  color: var(--first-color);
+}
+
+.nav__name {
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+}
+
+.nav__logout {
+  margin-top: 5rem;
+}
+
+.nav__dropdown {
+  overflow: hidden;
+  max-height: 21px;
+  transition: 0.4s ease-in-out;
+}
+
+.nav__dropdown-collapse {
+  background-color: var(--first-color-light);
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+}
+
+.nav__dropdown-content {
+  display: grid;
+  row-gap: 0.5rem;
+  padding: 0.75rem 2.5rem 0.75rem 1.8rem;
+}
+
+.nav__dropdown-item {
+  font-size: var(--smaller-font-size);
+  font-weight: var(--font-medium);
+  color: var(--text-color);
+}
+
+.nav__dropdown-item:hover {
+  color: var(--first-color);
+}
+
+.nav__dropdown:hover {
+  max-height: 100rem;
+}
+
+.nav__dropdown:hover .nav__dropdown-icon {
+  transform: rotate(180deg);
+}
+
+.show-menu {
+  left: 0;
+}
+
+.active {
+  color: var(--first-color);
+}
+
+@media screen and (max-width: 320px) {
+  .header__search {
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    padding: 1rem 3rem 0 6rem;
+  }
+  .header {
+    padding: 0 3rem 0 6rem;
+  }
+  .header__container {
+    height: calc(var(--header-height) + 0.5rem);
+  }
+  .header__search {
+    width: 300px;
+    padding: 0.55rem 0.75rem;
+  }
+  .header__toggle {
+    display: none;
+  }
+  .header__logo {
+    display: block;
+  }
+  .header__img {
+    width: 40px;
+    height: 40px;
+    order: 1;
+  }
+  .nav {
+    left: 0;
+    padding: 1.2rem 1.5rem 0;
+    width: 68px; /* Reduced navbar */
+  }
+  .nav__items {
+    row-gap: 1.7rem;
+  }
+  .nav__icon {
+    font-size: 1.3rem;
+  }
+
+  /* Element opacity */
+  .nav__logo-name,
+  .nav__name,
+  .nav__subtitle,
+  .nav__dropdown-icon {
+    opacity: 0;
+    transition: 0.3s;
+  }
+
+  /* Navbar expanded */
+  .nav:hover {
+    width: var(--nav-width);
+  }
+
+  /* Visible elements */
+  .nav:hover .nav__logo-name {
+    opacity: 1;
+  }
+  .nav:hover .nav__subtitle {
+    opacity: 1;
+  }
+  .nav:hover .nav__name {
+    opacity: 1;
+  }
+  .nav:hover .nav__dropdown-icon {
+    opacity: 1;
+  }
+
+  .halo1 {
+    margin-left: 35px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-left: 35px;
+    }
+}
+  </style>
+
+  <body>
+    <div class="nav" id="navbar">
+      <nav class="nav__container">
+        <div>
+          <div class="pp mx-auto">
+            <img
+              src="elon.webp"
+              alt="";
+              style= "border-radius: 90px"
+              width= "100px"
+              height="100px"
+              border-radius="20px"
+            />
+          </div>
+          <div class="text-bottom mx-auto pt-3">
+            <h6>DIKA AFIF INDRAWAN</h6>
+          </div>
+          <div class="halo1 text-bottom mr-5">
+            <p>23.01.5029</p>
+          </div>
+
+          <div class="nav__list">
+            <div class="nav__items">
+              <h3 class="nav__subtitle">PROFILE</h3>
+
+              <a href="#" class="nav__link active">
+                <i class="bx bx-home nav__icon"></i>
+                <span class="nav__name">Home</span>
+              </a>
+
+              <div class="nav__dropdown">
+                <a href="#" class="nav__link">
+                  <i class="bx bx-user nav__icon"></i>
+                  <span class="nav__name">Profile</span>
+                  <i
+                    class="bx bx-chevron-down nav__icon nav__dropdown-icon"
+                  ></i>
+                </a>
+
+                <div class="nav__dropdown-collapse">
+                  <div class="nav__dropdown-content">
+                    <a href="/Praktikum11_Rekap_Nilai/Rekap-nilai.html" class="nav__dropdown-item">Rekap Nilai</a>
+                  </div>
+                </div>
+              </div>
+
+              <a href="/Praktikum10_Tambah-Data/Tambah-data.html" class="nav__link">
+                <i class="bx bx-message-rounded nav__icon"></i>
+                <span class="nav__name">Tambah Data</span>
+              </a>
+            </div>
+
+            <div class="nav__items">
+              <h3 class="nav__subtitle">MENU</h3>
+
+              <div class="nav__dropdown">
+                <a href="#" class="nav__link">
+                  <i class="bx bx-bell nav__icon"></i>
+                  <span class="nav__name">Notifications</span>
+                  <i
+                    class="bx bx-chevron-down nav__icon nav__dropdown-icon"
+                  ></i>
+                </a>
+
+                <div class="nav__dropdown-collapse">
+                  <div class="nav__dropdown-content">
+                    <a href="#" class="nav__dropdown-item">Blocked</a>
+                    <a href="#" class="nav__dropdown-item">Silenced</a>
+                    <a href="#" class="nav__dropdown-item">Publish</a>
+                    <a href="#" class="nav__dropdown-item">Program</a>
+                  </div>
+                </div>
+              </div>
+
+              <a href="#" class="nav__link">
+                <i class="bx bx-compass nav__icon"></i>
+                <span class="nav__name">Explore</span>
+              </a>
+              <a href="#" class="nav__link">
+                <i class="bx bx-bookmark nav__icon"></i>
+                <span class="nav__name">Saved</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="/Pertemuan_7/Form-Login/Login-Page.html" class="nav__link nav__logout">
+          <i class="bx bx-log-out nav__icon"></i>
+          <span class="nav__name">Log Out</span>
+        </a>
+      </nav>
+    </div>
+        <div class="col py-3 h-3">
+          <h2>LUCTURER DASHBOARD</h2>
+          <p>Hi, Dika Afif Indrawan👋</p>
+          <div class="container rounded py-1 my-2 "style="background-color: rgba(0, 0, 0, 0.593);">
+            <h4>Lecturer Of Web Programing Etc</h4>
+          </div>
+          <div class="d-flex gap-3 text-center">
+            <div class="container rounded" style="background-color: rgba(0, 0, 0, 0.593)">
+              <h5>Qr Code</h5>
+              <img src="qr.png" alt="" width="150px" height="150px">
+            </div>
+            <div class="container bg-warning rounded text-center mb-4" style="background-color: rgba(0, 0, 0, 0.593) !important">
+              <h5>Lucturer Status</h5>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+                style="width: 100px; height: 100px; align-item: center"
+              >
+                <path
+                  fill="#3df019"
+                  d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+                />
+              </svg>
+            </div>
+            <div class="container bg-warning rounded text-center mb-5" style="background-color: rgba(0, 0, 0, 0.593) !important">
+              <h5>Lucturer NIK</h5>
+              <div class="my-5"><p>2309290310910</p></div>
+            </div>
+          </div>
+          <div class="container rounded my-3 py-1 fw-bold" style="background-color: rgba(0, 0, 0, 0.593)">
+            <h4>Lecturer Of Web Programing</h4>
+          </div>
+          <div class="container mt-3 rounded" style="background-color: rgba(0, 0, 0, 0.593)">
+            <table class="table text-white">
+              <thead>
+                <tr>
+                  <th class="text-center">NO</th>
+                  <th class="text-center">SUBJECT</th>
+                  <th class="text-center">ROOM</th>
+                  <th class="text-center">JAM</th>
+                  <th class="text-center">LOCATION</th>
+                  <th class="text-center">CLASS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center">1</td>
+                  <td class="text-center">Web Programing</td>
+                  <td class="text-center">2.5.7</td>
+                  <td class="text-center">08:50</td>
+                  <td class="text-center">Amikom</td>
+                  <td class="text-center">23D3TI-Pemrogr1</td>
+                </tr>
+                <tr>
+                  <td class="text-center">2</td>
+                  <td class="text-center">Math</td>
+                  <td class="text-center">7.3.2</td>
+                  <td class="text-center">08:50</td>
+                  <td class="text-center">Amikom</td>
+                  <td class="text-center">23D3TI-Pemrogr1</td>
+                </tr>
+                <tr>
+                  <td class="text-center">3</td>
+                  <td class="text-center">Saince</td>
+                  <td class="text-center">2.5.7</td>
+                  <td class="text-center">10:50</td>
+                  <td class="text-center">Amikom</td>
+                  <td class="text-center">23D3TI-Pemrogr1</td>
+                </tr>
+                <tr>
+                  <td class="text-center">4</td>
+                  <td class="text-center">Web Programing</td>
+                  <td class="text-center">2.3.2</td>
+                  <td class="text-center">07:00</td>
+                  <td class="text-center">Amikom</td>
+                  <td class="text-center">23D3TI-Pemrogr1</td>
+                </tr>
+                <tr>
+                  <td class="text-center">5</td>
+                  <td class="text-center">Web Programing</td>
+                  <td class="text-center">2.5.7</td>
+                  <td class="text-center">08:50</td>
+                  <td class="text-center">Amikom</td>
+                  <td class="text-center">23D3TI-Pemrogr1</td>
+                </tr>
+                <tr>
+                  <td class="text-center">6</td>
+                  <td class="text-center">Web Programing</td>
+                  <td class="text-center">2.5.7</td>
+                  <td class="text-center">08:50</td>
+                  <td class="text-center">Amikom</td>
+                  <td class="text-center">23D3TI-Pemrogr1</td>
+                </tr>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
